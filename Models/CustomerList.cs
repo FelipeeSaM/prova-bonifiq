@@ -1,9 +1,8 @@
-﻿namespace ProvaPub.Models
+﻿using ProvaPub.Models.Base;
+
+namespace ProvaPub.Models
 {
-	public class CustomerList
-	{
+	public class CustomerList : BaseLists {
 		public List<Customer> Customers { get; set; }
-		public int TotalCount { get; set; }
-		public bool HasNext { get; set; }
 	}
 }

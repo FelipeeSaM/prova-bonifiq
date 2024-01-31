@@ -2,6 +2,7 @@
 using ProvaPub.Models;
 using ProvaPub.Repository;
 using ProvaPub.Services;
+using ProvaPub.Services.Generics;
 
 namespace ProvaPub.Controllers
 {
@@ -16,19 +17,21 @@ namespace ProvaPub.Controllers
 	/// </summary>
 	[ApiController]
 	[Route("[controller]")]
-	public class Parte4Controller :  ControllerBase
+	public class Parte4Controller : ControllerBase
 	{
         TestDbContext _ctx;
-        public Parte4Controller(TestDbContext ctx)
+		private readonly IGenericProcessLists<Customer> _customerCtx;
+        public Parte4Controller(TestDbContext ctx, IGenericProcessLists<Customer> customerCtx)
         {
             _ctx = ctx;
+			_customerCtx = customerCtx;
         }
 
         [HttpGet("CanPurchase")]
 		public async Task<bool> CanPurchase(int customerId, decimal purchaseValue)
 		{
-			CustomerService svc = new CustomerService(_ctx);
-
+			CustomerService svc = new CustomerService(_ctx, _customerCtx);
+		
 			return await svc.CanPurchase(customerId, purchaseValue);
 		}
 	}

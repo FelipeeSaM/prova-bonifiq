@@ -2,6 +2,7 @@
 using ProvaPub.Models;
 using ProvaPub.Repository;
 using ProvaPub.Services;
+using ProvaPub.Services.Interfaces;
 
 namespace ProvaPub.Controllers
 {
@@ -16,10 +17,17 @@ namespace ProvaPub.Controllers
 	[Route("[controller]")]
 	public class Parte3Controller :  ControllerBase
 	{
-		[HttpGet("orders")]
+
+		private readonly IPaymentService _payment;
+
+        public Parte3Controller(IPaymentService payment) {
+            _payment = payment;
+        }
+
+        [HttpGet("orders")]
 		public async Task<Order> PlaceOrder(string paymentMethod, decimal paymentValue, int customerId)
 		{
-			return await new OrderService().PayOrder(paymentMethod, paymentValue, customerId);
+            return await _payment.PayOrder(paymentMethod, paymentValue, customerId);
 		}
 	}
 }

@@ -2,6 +2,7 @@
 using ProvaPub.Models;
 using ProvaPub.Repository;
 using ProvaPub.Services;
+using ProvaPub.Services.Interfaces;
 
 namespace ProvaPub.Controllers
 {
@@ -18,24 +19,27 @@ namespace ProvaPub.Controllers
 		/// Como você faria pra criar uma estrutura melhor, com menos repetição de código? E quanto ao CustomerService/ProductService. Você acha que seria possível evitar a repetição de código?
 		/// 
 		/// </summary>
-		TestDbContext _ctx;
-		public Parte2Controller(TestDbContext ctx)
+		/// 
+
+		private readonly IProductListService _productListService;
+		private readonly ICustomerListService _customerListService;
+
+		public Parte2Controller(IProductListService productList, ICustomerListService customerList)
 		{
-			_ctx = ctx;
+			_productListService = productList;
+			_customerListService = customerList;
 		}
 	
 		[HttpGet("products")]
-		public ProductList ListProducts(int page)
+		public Task<List<ProductList>> ListProductsAsync(int page)
 		{
-			var productService = new ProductService(_ctx);
-			return productService.ListProducts(page);
+			return _productListService.ListProductsAsync(page);
 		}
 
 		[HttpGet("customers")]
-		public CustomerList ListCustomers(int page)
+		public async Task<List<CustomerList>> ListCustomersAsync(int page)
 		{
-			var customerService = new CustomerService(_ctx);
-			return customerService.ListCustomers(page);
+			return await _customerListService.ListCustomersAsync(page);
 		}
 	}
 }
