@@ -2,6 +2,6 @@
 
 namespace ProvaPub.Services.Interfaces {
     public interface IProductListService {
-        Task<List<ProductList>> ListProductsAsync(int qtePaginas);
+        Task<ProductList> ListProductsAsync(int qtePaginas);
     }
 }

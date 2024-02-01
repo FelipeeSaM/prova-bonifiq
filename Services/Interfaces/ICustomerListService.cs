@@ -2,6 +2,6 @@
 
 namespace ProvaPub.Services.Interfaces {
     public interface ICustomerListService {
-        Task<List<CustomerList>> ListCustomersAsync(int page);
+        Task<CustomerList> ListCustomersAsync(int page);
     }
 }

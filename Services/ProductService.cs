@@ -18,13 +18,9 @@ namespace ProvaPub.Services
             _ctxProduct = ctxProduct;
 		}
 
-        public async Task<List<ProductList>> ListProductsAsync(int page) {
-
-            List<ProductList> listToRender = new List<ProductList>();
+        public async Task<ProductList> ListProductsAsync(int page) {
+        
             var products = await _ctxProduct.ListEntitiesAsync(page);
-            // ou utilizando de lógica, poderia pegar uma lista de products utilizando o GetRange(indice inicial, qte a exibir)
-            // Pessoalmente prefiro a repetição de código aqui, pois podemos adicionar regras de negócios diferentes entre
-            // Product e Customer.
 
             ProductList list = new ProductList {
                 HasNext = false,
@@ -32,9 +28,7 @@ namespace ProvaPub.Services
                 Products = products
             };
 
-            listToRender.Add(list);
-
-            return listToRender;
+            return list;
         }
 
     }

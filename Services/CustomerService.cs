@@ -53,8 +53,8 @@ namespace ProvaPub.Services
         //    return true;
         //}
 
-        public async Task<List<CustomerList>> ListCustomersAsync(int page) {
-            List<CustomerList> listToRender = new List<CustomerList>();
+        public async Task<CustomerList> ListCustomersAsync(int page) {
+            
             var customers = await _ctxCustomer.ListEntitiesAsync(page);
 
             CustomerList list = new CustomerList {
@@ -63,9 +63,7 @@ namespace ProvaPub.Services
                 Customers = customers
             };
 
-            listToRender.Add(list);
-
-            return listToRender;
+            return list;
         }
 
         public async Task<bool> CanPurchase(int customerId, decimal purchaseValue) {

@@ -31,13 +31,13 @@ namespace ProvaPub.Controllers
 		}
 	
 		[HttpGet("products")]
-		public Task<List<ProductList>> ListProductsAsync(int page)
+		public Task<ProductList> ListProductsAsync(int page)
 		{
 			return _productListService.ListProductsAsync(page);
 		}
 
 		[HttpGet("customers")]
-		public async Task<List<CustomerList>> ListCustomersAsync(int page)
+		public async Task<CustomerList> ListCustomersAsync(int page)
 		{
 			return await _customerListService.ListCustomersAsync(page);
 		}
